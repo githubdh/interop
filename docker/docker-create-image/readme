@@ -1,0 +1,3 @@
+docker build --tag helloworld_from_image:latest .
+docker images
+docker run aa429c19e1e4 ./helloworld

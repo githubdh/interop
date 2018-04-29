@@ -1,0 +1,2 @@
+docker build --tag helloworld_createfromscratch:latest .
+docker run helloworld_createfromscratch:latest ./helloworld
