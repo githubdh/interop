@@ -1,0 +1,25 @@
+Pipeline.user.linux.yml
+    1. source_mode: link
+        The comments suggest that the source_mode should really be copy but the default appears to be link. We should fix it one way or another
+
+    2. Document best practice for copy pasting yaml
+        start the copy from the left most point to include all spaces
+        not doing so can cause the yaml to be malformed even if you add them later
+
+    3. !!dockerbuildcommand documentation
+        cache_locally option in the sample is not documented in the description
+
+    4. !!dockerbuildcommand 
+        if the local_path for the metadata file hangs off the context folder, don't ask the user to enter it all over again
+
+    5. !!dockerbuildcommand
+        metadata_file: artifact_path purpose and definition of this is not clear
+
+    6. !!dockerbuildcommand
+        export_to_artifact_path documentation not clear
+
+    7. Need a YAML checker in VSCode
+
+    8. !!dockerbuildcommand - documentation
+
+        Example of downloading the image points to cdpx test not cdpxlinuxtest where it really goes
