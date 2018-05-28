@@ -71,6 +71,43 @@ versioning:
 build:
   commands:                                                             # This is a sequence of script files to be executed one after another
                                                                         # in the order they appear here.
+
+    - !!buildcommand                                                    # There are three types of commands, buildcommand, testcommand and
+                                                                        # defaultcommand.
+                                                                        # The only difference is that they collect different types of
+                                                                        # artifacts.
+                                                                        # buildcommand --- run a build script, collect artifacts, specify
+                                                                        #                  files to sign and logs.
+                                                                        # defaultcommand - run any script, collect logs only.
+                                                                        # testcommand ---- run a test script, collect logs, test results and
+                                                                        #                  code coverage files. and associate with the build.
+      name: 'Build helloworld'                                                   # This is name for this step. The step name will be in logs and in the
+                                                                        # future, will be associated with metrics, timelines, journal etc.
+      command: 'build-hello.sh'                                             # A root relative path to the script to execute. Any console output
+                                                                        # will be automatically pushed to VSTS logs. Any files explicitly
+                                                                        # written to file can be collected via the logs list.
+                                                                        # Note that the best way to code these scripts is such that they run
+                                                                        # on a developer desktop. Invariably, if you can get it working on
+                                                                        # your dev desktop, it should work in the CDP pipeline.
+      logs:                                                             # This is a sequence of include and exclude glob patterns.
+        - include:                                                      # Include patterns are evaluated fully first. All of them are relative
+                                                                        # to the root of the source directory.
+            - 'build.log'
+          exclude:                                                      # Exclude patterns are evaluated after all include patterns are
+                                                                        # evaluated.
+                                                                        # There may be spurious log files. Exclude them.
+      artifacts:                                                        # A sequence of entries that describes what artifacts to collect and
+                                                                        # upload.
+        - include: 
+            - 'HelloWorld'
+                                                                        # We always preserve the root relative path for every matched file.
+                                                                        # Sometimes that's OK and sometimes it's not. The from, to options
+                                                                        # (both are optional and either of them can be used independently)
+                                                                        # allow you to remap the folder from which articacts are picked up to
+                                                                        # a different location. Think of this as a effectively doing a
+                                                                        # robocopy /S C:\X\Y to D;\F.
+
+
     - !!buildcommand                                                    # There are three types of commands, buildcommand, testcommand and
                                                                         # defaultcommand.
                                                                         # The only difference is that they collect different types of
