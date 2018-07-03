@@ -200,6 +200,21 @@ test:
     #       - 'src\**\TestResults\**\*.log'                             # Include all TRX files under any TestResults folder under the src
     #                                                                   # folder.
 
+  - !!vstsbuildcommand        # REQUIRED: This maps the command data to a concrete type in the CDPX orchestrator.
+    name: 'External Test Hello World'  # REQUIRED: All commands have a name field. All console output captured when 
+                              #           this command runs is tagged with the value of this field.
+    definition_id: 33134        # REQUIRED: The ID of the VSTS definition to launch.
+                              # Can be found in the URL of the definition.
+    wait_mode: 'WaitNow'      # REQUIRED: Determines behavior with respect to waiting for the client build.
+                              # 'WaitNow': Block execution until the child build completes.
+                              # 'NoWait': Launch the child build, then ignore it and move on.
+    wait_minutes: 20          # OPTIONAL: Maximum time to wait for the child build, if wait_mode is set to 'WaitNow'.
+                              # If this limit is hit, cancel the child build and consider it failed.
+    continue_on_error: false  # REQUIRED: Determines whether to ignore failures in the child build, if wait_mode is set to 'WaitNow'.
+                              # true: ignore child build results.
+                              # false: write an error and treat this step as failed if the child build does not complete successfully.
+
+
 # An optional, interim user defined stage for performing publishing of the build. Examples include, dropping the files to a network share,
 # pushing packages to a package repository, uploading binaries to blob store etc. 
 # Eventually, network access in this stage will be restricted to dev-feeds only for non-official builds. We may remove this stage for official
