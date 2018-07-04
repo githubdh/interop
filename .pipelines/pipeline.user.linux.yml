@@ -71,6 +71,7 @@ versioning:
 build:
   commands:                                                             # This is a sequence of script files to be executed one after another
                                                                         # in the order they appear here.
+
     - !!dockerbuildcommand
       name: 'Build Sample Docker Image'
       repository_name: 'dhdemo/dockersample'
@@ -185,20 +186,35 @@ package:
 test:
   commands:                                                             # This is a sequence of script files to be executed one after another
                                                                         # in the order they appear here.
-#   - !!testcommand                                                     # We are going to run tests and collect back the test results for
-#                                                                       # publishing
-#     name: 'Test The Code'                                             # If your test run does not have a name, this will be used.
-#     command: 'src\test.cmd'                                           # Script that runs tests.
-#     testresults:                                                      # Sequence of entries indicating which test results files to collect.
-#       - title: 'All Tests'                                            # Test run title. Used by VSTS.
-#         configuration: 'Debug'                                        # Optional build configuration.
-#         platform: 'x64'                                               # Optional build platform.
-#         type: 'vstest'                                                # Test engine type. Used by VSTS. Supported values are JUnit, NUnit,
-#                                                                       # VSTest and xUnit.
-#         include:                                                      # Sequence of glob patterns indicating which test results file to
-#                                                                       # associate with this test run.
-#           - 'src\**\TestResults\**\*.trx'                             # Include all TRX files under any TestResults folder under the src
-#                                                                       # folder.
+  - !!testcommand                                                     # We are going to run tests and collect back the test results for
+                                                                      # publishing
+    name: 'Test Hello World'                                             # If your test run does not have a name, this will be used.
+    command: 'test-hello2.sh'                                           # Script that runs tests.
+    # testresults:                                                      # Sequence of entries indicating which test results files to collect.
+    #   - title: 'All Tests'                                            # Test run title. Used by VSTS.
+    #     configuration: 'Debug'                                        # Optional build configuration.
+    #     platform: 'x64'                                               # Optional build platform.
+    #     type: 'vstest'                                                # Test engine type. Used by VSTS. Supported values are JUnit, NUnit,
+    #                                                                   # VSTest and xUnit.
+    #     include:                                                      # Sequence of glob patterns indicating which test results file to
+    #                                                                   # associate with this test run.
+    #       - 'src\**\TestResults\**\*.log'                             # Include all TRX files under any TestResults folder under the src
+    #                                                                   # folder.
+
+  - !!vstsbuildcommand        # REQUIRED: This maps the command data to a concrete type in the CDPX orchestrator.
+    name: 'External Test Hello World'  # REQUIRED: All commands have a name field. All console output captured when 
+                              #           this command runs is tagged with the value of this field.
+    definition_id: 33134        # REQUIRED: The ID of the VSTS definition to launch.
+                              # Can be found in the URL of the definition.
+    wait_mode: 'WaitNow'      # REQUIRED: Determines behavior with respect to waiting for the client build.
+                              # 'WaitNow': Block execution until the child build completes.
+                              # 'NoWait': Launch the child build, then ignore it and move on.
+    wait_minutes: 20          # OPTIONAL: Maximum time to wait for the child build, if wait_mode is set to 'WaitNow'.
+                              # If this limit is hit, cancel the child build and consider it failed.
+    continue_on_error: false  # REQUIRED: Determines whether to ignore failures in the child build, if wait_mode is set to 'WaitNow'.
+                              # true: ignore child build results.
+                              # false: write an error and treat this step as failed if the child build does not complete successfully.
+
 
 # An optional, interim user defined stage for performing publishing of the build. Examples include, dropping the files to a network share,
 # pushing packages to a package repository, uploading binaries to blob store etc. 
