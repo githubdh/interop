@@ -72,22 +72,6 @@ build:
   commands:                                                             # This is a sequence of script files to be executed one after another
                                                                         # in the order they appear here.
 
-
-    - !!defaultcommand                                                    # There are three types of commands, buildcommand, testcommand and
-                                                                        # defaultcommand.
-                                                                        # The only difference is that they collect different types of
-                                                                        # artifacts.
-                                                                        # buildcommand --- run a build script, collect artifacts, specify
-                                                                        #                  files to sign and logs.
-                                                                        # defaultcommand - run any script, collect logs only.
-                                                                        # testcommand ---- run a test script, collect logs, test results and
-                                                                        #                  code coverage files. and associate with the build.
-      name: 'xyz'                                                   # This is name for this step. The step name will be in logs and in the
-                                                                        # future, will be associated with metrics, timelines, journal etc.
-      command: 'test-hello.sh'                                             # A root relative path to the script to execute. Any console output
-
-
-      
     - !!dockerbuildcommand
       name: 'Build Sample Docker Image'
       repository_name: 'dhdemo/dockersample'
