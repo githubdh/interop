@@ -1,0 +1,28 @@
+environment:
+  host:
+    os: windows
+    flavor: datacenter
+    version: 2016
+  runtime:
+    provider: appcontainer
+    image: cdpxtest.azurecr.io/global/vse2017u5-ext-win14393.1884:1.0
+
+
+version:
+  name: 'dh-demo'
+  major: 1
+  minor: 0
+  tag: test
+  system: 'patch'
+
+
+build:
+  commands:
+    - !!buildcommand
+      name: 'Build Hello Windows'
+      command: 'build-hello.cmd'
+      artifacts:
+        - from: '**/*'
+          to: 'HelloWorldWindows'
+          include:
+            - 'HelloWorld.exe'
