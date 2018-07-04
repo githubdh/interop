@@ -22,7 +22,7 @@ build:
       name: 'Build Hello Windows'
       command: 'build-hello.cmd'
       artifacts:
-        - from: '**/*'
+        - from: '.\'
           to: 'HelloWorldWindows'
           include:
             - 'HelloWorld.exe'
