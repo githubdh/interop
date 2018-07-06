@@ -17,7 +17,7 @@ echo  "contents of the  build dir"
 ls
 
 # Invoke G++ to compile the sample.
-g++ -v helloworld.c -o HelloWorld &> build.log
+g++ -v helloworld.cpp -o HelloWorld &> build.log
 
 # Save the exit code from G++
 EX=$?
