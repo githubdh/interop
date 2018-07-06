@@ -189,7 +189,7 @@ test:
   - !!testcommand                                                     # We are going to run tests and collect back the test results for
                                                                       # publishing
     name: 'Test Hello World'                                             # If your test run does not have a name, this will be used.
-    command: 'test-hello2.sh'                                           # Script that runs tests.
+    command: 'test-hello.sh'                                           # Script that runs tests.
     # testresults:                                                      # Sequence of entries indicating which test results files to collect.
     #   - title: 'All Tests'                                            # Test run title. Used by VSTS.
     #     configuration: 'Debug'                                        # Optional build configuration.
