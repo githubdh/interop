@@ -1,0 +1,4 @@
+Spin up a est phase
+Run the hello world binary with all logging turned
+Emit logs in trx so that it shows up in the VSTS UI
+Reads the result file and returns success(0) or fail(1)
