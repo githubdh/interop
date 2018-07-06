@@ -50,6 +50,7 @@ build:
                                                                         # upload.
         - include: 
             - 'HelloWorld'
+            - 'test-hello.sh'  
 
 test:
   commands:                                                             # This is a sequence of script files to be executed one after another
